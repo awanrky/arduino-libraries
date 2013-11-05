@@ -1,0 +1,1 @@
+copy-item -Recurse -Force -Path aisa_* ~/Documents/Arduino/libraries
