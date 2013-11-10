@@ -1,5 +1,5 @@
 
-#include "aisa_Cd5Photocell.h"
+#include "aisa_Cd5PhotoCell.h"
 
 aisa_Cd5PhotoCell::aisa_Cd5PhotoCell(int analogPin)
 {

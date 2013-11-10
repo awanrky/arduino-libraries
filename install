@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r aisa_* ~/arduino-1.0.5/libraries/
+cp -r third_party/* ~/arduino-1.0.5/libraries/

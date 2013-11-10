@@ -6,14 +6,14 @@ written by Adafruit Industries
 
 #include "DHT.h"
 
-DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
+DHT2::DHT(uint8_t pin, uint8_t type, uint8_t count) {
   _pin = pin;
   _type = type;
   _count = count;
   firstreading = true;
 }
 
-void DHT::begin(void) {
+void DHT2::begin(void) {
   // set up the pins!
   pinMode(_pin, INPUT);
   digitalWrite(_pin, HIGH);
@@ -21,7 +21,7 @@ void DHT::begin(void) {
 }
 
 //boolean S == Scale.  True == Farenheit; False == Celcius
-float DHT::readTemperature(bool S) {
+float DHT2::readTemperature(bool S) {
   float f;
 
   if (read()) {
@@ -50,11 +50,11 @@ float DHT::readTemperature(bool S) {
   return NAN;
 }
 
-float DHT::convertCtoF(float c) {
+float DHT2::convertCtoF(float c) {
 	return c * 9 / 5 + 32;
 }
 
-float DHT::readHumidity(void) {
+float DHT2::readHumidity(void) {
   float f;
   if (read()) {
     switch (_type) {
@@ -75,7 +75,7 @@ float DHT::readHumidity(void) {
 }
 
 
-boolean DHT::read(void) {
+boolean DHT2::read(void) {
   uint8_t laststate = HIGH;
   uint8_t counter = 0;
   uint8_t j = 0, i;
