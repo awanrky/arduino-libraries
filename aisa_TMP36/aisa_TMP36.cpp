@@ -7,40 +7,50 @@ aisa_TMP36::aisa_TMP36(int analogPin, float voltagePin, int delay)
     readingDelay = delay;
 }
 
-void aisa_TMP36::setReading(int reading)
-{
-    analogReading = reading;
-}
-
 void aisa_TMP36::takeReading()
-{
+{    
     analogReading = analogRead(pin);
     delay(readingDelay);
     analogReading = analogRead(pin);
+    voltage = analogReading * suppliedVoltage / 1024.0;
 }
 
-float aisa_TMP36::voltage()
+int aisa_TMP36::getPin()
 {
-    return analogReading * suppliedVoltage / 1024.0;
+    return pin;
 }
 
-float aisa_TMP36::celcius()
+float aisa_TMP36::getSuppliedVoltage()
 {
-    return (voltage() - 0.5) * 100;
+    return suppliedVoltage;
 }
 
-float aisa_TMP36::fahrenheit()
+void aisa_TMP36::setReadingDelay(int delay)
 {
-    return (celcius() * 9.0 / 5.0) + 32.0;
+    readingDelay = delay;
 }
 
-void aisa_TMP36::toSerial()
+int aisa_TMP36::getReadingDelay()
 {
-    Serial.print("TMP36--volts: ");
-    Serial.print(voltage());
-    Serial.print(", Degrees C: ");
-    Serial.print(celcius());
-    Serial.print(", Degrees Fahreinheit: ");
-    Serial.print(fahrenheit());
-    Serial.println(".");
+    return readingDelay;
 }
+
+float aisa_TMP36::getVoltage(bool takeReading)
+{
+    if (takeReading)
+    {
+        this->takeReading();
+    }
+    return voltage;
+}
+
+float aisa_TMP36::getCelcius(bool takeReading)
+{
+    return (this->getVoltage(takeReading) - 0.5) * 100;
+}
+
+// float aisa_TMP36::fahrenheit()
+// {
+//     return (celcius() * 9.0 / 5.0) + 32.0;
+// }
+

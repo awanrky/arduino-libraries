@@ -1,10 +1,55 @@
-
-
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2561.h>
 
 #include "aisa_TSL2561.h"
+
+aisa_TSL2561::aisa_TSL2561(uint8_t address, int32_t id)
+{
+    initialize(address, id);
+}
+
+aisa_TSL2561::aisa_TSL2561(uint8_t address)
+{
+    initialize(address, 2112);
+}
+
+aisa_TSL2561::aisa_TSL2561()
+{
+    initialize(TSL2561_ADDR_FLOAT, 2112);
+}
+
+bool aisa_TSL2561::takeReading()
+{
+    return this->takeLuxReading() && this->takeLuminosityReading();   
+}
+
+int aisa_TSL2561::getLux(bool takeReading)
+{
+    if (takeReading)
+    {
+        this->takeLuxReading();
+    }
+    return event.light;
+}
+
+int aisa_TSL2561::getInfrared(bool takeReading)
+{
+    if (takeReading)
+    {
+        this->takeLuminosityReading();
+    }
+    return infrared;
+}
+
+int aisa_TSL2561::getBroadband(bool takeReading)
+{
+    if (takeReading)
+    {
+        this->takeLuminosityReading();
+    }
+    return broadband;
+}
 
 void aisa_TSL2561::initialize(uint8_t address, int32_t id)
 {
@@ -29,59 +74,19 @@ void aisa_TSL2561::initialize(uint8_t address, int32_t id)
     }
 }
 
-void aisa_TSL2561::getLuminosity()
+bool aisa_TSL2561::takeLuminosityReading()
 {
+    if(!initialized) { return false; }
     broadband = 0;
     infrared = 0;
 
     tsl->getLuminosity(&broadband, &infrared);
+    return true;
 }
 
-aisa_TSL2561::aisa_TSL2561(uint8_t address, int32_t id)
-{
-    initialize(address, id);
-}
-
-aisa_TSL2561::aisa_TSL2561(uint8_t address)
-{
-    initialize(address, 2112);
-}
-
-aisa_TSL2561::aisa_TSL2561()
-{
-    initialize(TSL2561_ADDR_FLOAT, 2112);
-}
-
-bool aisa_TSL2561::takeReading()
+bool aisa_TSL2561::takeLuxReading()
 {
     if(!initialized) { return false; }
     tsl->getEvent(&event);
-}
-
-int aisa_TSL2561::getLux()
-{
-    return event.light;
-}
-
-int aisa_TSL2561::getInfrared()
-{
-    getLuminosity();
-    return infrared;
-}
-
-int aisa_TSL2561::getBroadband()
-{
-    getLuminosity();
-    return broadband;
-}
-
-void aisa_TSL2561::toSerial()
-{
-    Serial.print("TSL2561--Lux: ");
-    Serial.print(getLux());
-    Serial.print(", Broadband: ");
-    Serial.print(getBroadband());
-    Serial.print(", Infrared: ");
-    Serial.print(getInfrared());
-    Serial.println(".");
+    return true;
 }

@@ -175,21 +175,26 @@ int aisa_DHT::getDhtType()
 	return dhtType;
 }
 
-float aisa_DHT::temperature()
+void aisa_DHT::takeReading()
 {
-	return dht->readTemperature();
+  temperature = dht->readTemperature();
+  humidity = dht->readHumidity();
 }
 
-float aisa_DHT::humidity()
+float aisa_DHT::getTemperature(bool takeReading)
 {
-	return dht->readHumidity();
+  if (takeReading) 
+  {
+    temperature = dht->readTemperature();
+  }
+	return temperature;
 }
 
-void aisa_DHT::toSerial()
+float aisa_DHT::getHumidity(bool takeReading)
 {
-	Serial.print("DHT--Humidity: ");
-    Serial.print(humidity());
-    Serial.print(", Temperature: ");
-    Serial.print(temperature());
-    Serial.println(" C");
+	if (takeReading)
+  {
+    humidity = dht->readHumidity();
+  }
+  return humidity;
 }

@@ -31,21 +31,27 @@ class DHT {
 
 class aisa_DHT
 {
+private:
     int pin;                // analog - 10mV / degree C with a 500mV offset (offset to allow for negative temperatures)
     int dhtType;            // DHT11, DHT22, DHT21, AM2301
 
-public:
+    float temperature;
+    float humidity;
+
     DHT * dht;
+
+public:
 
     aisa_DHT(int digitalPin, int type);
 
     int getPin();
     int getDhtType();
 
-    float temperature();
-    float humidity();
+    void takeReading();
 
-    void toSerial();
+    float getTemperature(bool takeReading = true);
+    float getHumidity(bool takeReading = true);
+
 };
 
 #endif

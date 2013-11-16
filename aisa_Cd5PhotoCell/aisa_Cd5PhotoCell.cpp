@@ -11,8 +11,11 @@ void aisa_Cd5PhotoCell::takeReading()
     reading = analogRead(pin);
 }
 
-void aisa_Cd5PhotoCell::toSerial()
+int aisa_Cd5PhotoCell::getReading(bool takeReading)
 {
-    Serial.print("Cd5 Photo Cell--");
-    Serial.println(reading);
+	if (takeReading) 
+	{
+		this->takeReading();
+	}
+	return reading;
 }

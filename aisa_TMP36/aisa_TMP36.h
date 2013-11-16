@@ -5,21 +5,27 @@
 
 class aisa_TMP36
 {
-public:
+private:
     int pin;                 // analog - 10mV / degree C with a 500mV offset (offset to allow for negative temperatures)
     float suppliedVoltage;   // 3.3 or 5.0 (depending on voltage supplied to sensor)
     int readingDelay;        // takes two readings, with delay in between, to see if readings become more consistent
 
     int analogReading;
+    float voltage;
 
+public:
     aisa_TMP36(int analogPin, float voltagePin, int delay);
 
-    void setReading(int reading);
     void takeReading();
-    float voltage();
-    float celcius();
-    float fahrenheit();
-    void toSerial();
+
+    int getPin();
+    float getSuppliedVoltage();
+
+    void setReadingDelay(int delay);
+    int getReadingDelay();
+
+    float getVoltage(bool takeReading = true);
+    float getCelcius(bool takeReading = true);
 
 };
 

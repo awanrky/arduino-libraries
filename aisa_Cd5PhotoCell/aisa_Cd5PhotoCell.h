@@ -6,14 +6,16 @@
 
 class aisa_Cd5PhotoCell
 {
-public:
+private:
 	int pin;
 	int reading;
+
+public:
 
 	aisa_Cd5PhotoCell(int analogPin);
 
 	void takeReading();
-	void toSerial();
+	int getReading(bool takeReading = true);
 };
 
 #endif
