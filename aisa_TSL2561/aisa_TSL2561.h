@@ -11,6 +11,7 @@ private:
 
     uint8_t i2cAddress;
     int32_t sensorId;
+    String sensorName;
 
     Adafruit_TSL2561 * tsl;
     bool initialized;
@@ -19,15 +20,19 @@ private:
     uint16_t broadband;
     uint16_t infrared;
 
-    void initialize(uint8_t address, int32_t id);
+    void initialize(String name, uint8_t address, int32_t id);
     bool takeLuminosityReading();
     bool takeLuxReading();
 
 public:
 
-    aisa_TSL2561(uint8_t address, int32_t id);
-    aisa_TSL2561(uint8_t address);
-    aisa_TSL2561();
+    aisa_TSL2561(String name, uint8_t address, int32_t id);
+    aisa_TSL2561(String name, uint8_t address);
+    aisa_TSL2561(String name);
+
+    String getPinName();
+    String getSensorName();
+    int getSensorId();
 
     bool takeReading();
     int getLux(bool takeReading = true);

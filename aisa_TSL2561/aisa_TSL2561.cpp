@@ -4,19 +4,36 @@
 
 #include "aisa_TSL2561.h"
 
-aisa_TSL2561::aisa_TSL2561(uint8_t address, int32_t id)
+aisa_TSL2561::aisa_TSL2561(String name, uint8_t address, int32_t id)
 {
-    initialize(address, id);
+    initialize(name, address, id);
 }
 
-aisa_TSL2561::aisa_TSL2561(uint8_t address)
+aisa_TSL2561::aisa_TSL2561(String name, uint8_t address)
 {
-    initialize(address, 2112);
+    initialize(name, address, 2112);
 }
 
-aisa_TSL2561::aisa_TSL2561()
+aisa_TSL2561::aisa_TSL2561(String name)
 {
-    initialize(TSL2561_ADDR_FLOAT, 2112);
+    initialize(name, TSL2561_ADDR_FLOAT, 2112);
+}
+
+String aisa_TSL2561::getPinName()
+{
+    char * buffer = "dxxxxx";
+    sprintf(buffer, "%d", (int)i2cAddress);
+    return buffer;
+}
+
+String aisa_TSL2561::getSensorName()
+{
+    return sensorName;
+}
+
+int aisa_TSL2561::getSensorId()
+{
+    return sensorId;
 }
 
 bool aisa_TSL2561::takeReading()
@@ -51,8 +68,9 @@ int aisa_TSL2561::getBroadband(bool takeReading)
     return broadband;
 }
 
-void aisa_TSL2561::initialize(uint8_t address, int32_t id)
+void aisa_TSL2561::initialize(String name, uint8_t address, int32_t id)
 {
+    sensorName = name;
     i2cAddress = address;
     sensorId = id;
     tsl = new Adafruit_TSL2561(address, id);

@@ -156,8 +156,9 @@ boolean DHT::read(void) {
 }
 
 
-aisa_DHT::aisa_DHT(int digitalPin, int type)
+aisa_DHT::aisa_DHT(String name, int digitalPin, int type)
 {
+  sensorName = name;
 	pin = digitalPin;
 	dhtType = type;
 
@@ -168,6 +169,18 @@ aisa_DHT::aisa_DHT(int digitalPin, int type)
 int aisa_DHT::getPin()
 {
 	return pin;
+}
+
+String aisa_DHT::getPinName()
+{
+    char * buffer = "dxx";
+    sprintf(buffer, "d%d", pin);
+    return buffer;
+}
+
+String aisa_DHT::getSensorName()
+{
+    return sensorName;
 }
 
 int aisa_DHT::getDhtType()

@@ -12,13 +12,16 @@ private:
 
     int analogReading;
     float voltage;
+    String sensorName;
 
 public:
-    aisa_TMP36(int analogPin, float voltagePin, int delay);
+    aisa_TMP36(String name, int analogPin, float voltagePin, int delay);
 
     void takeReading();
 
     int getPin();
+    String getPinName();
+    String getSensorName();
     float getSuppliedVoltage();
 
     void setReadingDelay(int delay);

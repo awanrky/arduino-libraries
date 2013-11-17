@@ -37,12 +37,13 @@ private:
 
     float temperature;
     float humidity;
+  String sensorName;
 
     DHT * dht;
 
 public:
 
-    aisa_DHT(int digitalPin, int type);
+    aisa_DHT(String name, int digitalPin, int type);
 
     int getPin();
     int getDhtType();
@@ -51,6 +52,8 @@ public:
 
     float getTemperature(bool takeReading = true);
     float getHumidity(bool takeReading = true);
+  String getPinName();
+  String getSensorName();
 
 };
 

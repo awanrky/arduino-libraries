@@ -1,7 +1,8 @@
 #include "aisa_TMP36.h"
 
-aisa_TMP36::aisa_TMP36(int analogPin, float voltagePin, int delay)
+aisa_TMP36::aisa_TMP36(String name, int analogPin, float voltagePin, int delay)
 {
+    sensorName = name;
     pin = analogPin;
     suppliedVoltage = voltagePin;
     readingDelay = delay;
@@ -18,6 +19,18 @@ void aisa_TMP36::takeReading()
 int aisa_TMP36::getPin()
 {
     return pin;
+}
+
+String aisa_TMP36::getPinName()
+{
+    char * buffer = "axx";
+    sprintf(buffer, "a%d", pin);
+    return buffer;
+}
+
+String aisa_TMP36::getSensorName()
+{
+    return sensorName;
 }
 
 float aisa_TMP36::getSuppliedVoltage()
