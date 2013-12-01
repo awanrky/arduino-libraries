@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cp -r aisa_* /usr/share/arduino/libraries/
-cp -r third_party/* /usr/share/arduino/libraries/
+cp -r aisa_* ~/sketchbook/libraries/
+cp -r third_party/* ~/sketchbook/libraries/
