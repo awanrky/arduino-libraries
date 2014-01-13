@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r aisa_* ~/sketchbook/libraries/
+cp -r third_party/* ~/sketchbook/libraries/
