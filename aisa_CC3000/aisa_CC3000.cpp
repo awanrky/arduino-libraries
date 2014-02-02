@@ -88,6 +88,11 @@ void aisa_CC3000::disconnect()
 	cc3000->disconnect();
 }
 
+bool aisa_CC3000::checkConnected()
+{
+	return cc3000->checkConnected();
+}
+
 int aisa_CC3000::getErrorState()
 {
 	return errorState;
@@ -199,6 +204,8 @@ uint32_t aisa_CC3000::getHostByName(char * hostName)
 
 Adafruit_CC3000_Client aisa_CC3000::getTcpConnection(uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4, uint16_t port)
 {
+	Adafruit_CC3000_Client www;
+
 	if (!this->checkInitialized())
 	{
 		return NULL;
@@ -209,7 +216,11 @@ Adafruit_CC3000_Client aisa_CC3000::getTcpConnection(uint8_t octet1, uint8_t oct
 	ip += (uint32_t)octet3 << 8;
 	ip += octet4;
 
-	return cc3000->connectTCP(ip, port);
+	int t = millis();
+	do {
+		www = cc3000->connectTCP(ip, port);
+	} while ((!www.connected() && ((millis() - t < idleTimeoutMilliseconds))));
+	return www;
 }
 
 Adafruit_CC3000_Client aisa_CC3000::getTcpConnection(char * hostName, uint16_t hostPort)
@@ -335,10 +346,13 @@ String aisa_CC3000::tcpPost(Adafruit_CC3000_Client www, char * route, char * par
 
 	www.fastrprint(F("Content-Length: "));
 
-	char buffer[10];
-	String contentLengthString = String(strlen(parameters));
-	contentLengthString.toCharArray(buffer, 10);
-	www.fastrprint(buffer);
+	// char buffer[10];
+	// String contentLengthString = String(strlen(parameters));
+	// contentLengthString.toCharArray(buffer, 10);
+	// www.fastrprint(buffer);
+	www.print(strlen(parameters));
+
+
 	www.fastrprint(F("\r\n\r\n"));
 
 	www.fastrprint(parameters);

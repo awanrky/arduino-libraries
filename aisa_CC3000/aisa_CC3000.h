@@ -80,6 +80,8 @@ public:
 
 	String getIpDotsString(uint32_t ip);
 
+	bool checkConnected();
+
 	void disconnect();
 
 	uint32_t getHostByName(char * hostName);
