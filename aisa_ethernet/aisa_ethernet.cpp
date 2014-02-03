@@ -44,6 +44,8 @@ bool aisa_ethernet::post(IPAddress server, uint16_t port, char * route, char * c
 		if(ethernetClient.find("HTTP/1.1") && ethernetClient.find("201 Created") ){
 	       returnValue = true;
 	    }
+
+	    ethernetClient.flush();
 	}
 	else
 	{
