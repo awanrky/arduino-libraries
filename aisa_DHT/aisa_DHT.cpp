@@ -30,6 +30,7 @@
 // uint16_t for UNO, higher CPU speeds => exceed MAXINT.
 // works for DUE
 #define TIMEOUT (F_CPU/1600)    
+// #define TIMEOUT 20000
 
 
 /////////////////////////////////////////////////////
@@ -129,7 +130,7 @@ int dht::read(uint8_t pin)
   digitalWrite(pin, LOW);
   delay(20);
   digitalWrite(pin, HIGH);
-  delayMicroseconds(40);
+  delayMicroseconds(30);
   pinMode(pin, INPUT);
 
     // TODO rewrite with miros()?
